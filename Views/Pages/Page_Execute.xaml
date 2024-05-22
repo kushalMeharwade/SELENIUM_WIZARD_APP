@@ -1,0 +1,57 @@
+﻿<ui:UiPage x:Class="Selenium_Wizard.Views.Pages.Page_Execute"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Selenium_Wizard.Views.Pages"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page_Execute">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"></ColumnDefinition>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <ui:TextBox PlaceholderText="BASE URL" Text="{Binding currentPageExecute.baseUrl}" IconPlacement="Left" Icon="WebAsset20" Margin="10,15,10,0"></ui:TextBox>
+            <Label Content="SELECT LOGIN DATA PAGE" Margin="10,20,0,0" FontFamily="Arial"  FontWeight="DemiBold"></Label>
+            <ComboBox Margin="10,5,10,0" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding ListOfPagesLogin}" SelectedValue="{Binding currentPageExecute.LoginPageCode}" ></ComboBox>
+
+
+            <Label Content="SELECT DATA PAGE" Margin="10,20,0,0" FontFamily="Arial"  FontWeight="DemiBold"></Label>
+            <ComboBox Margin="10,5,10,0" DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding ListOfPagesData}" SelectedValue="{Binding currentPageExecute.dataPageCode}" ></ComboBox>
+            <ui:TextBox Icon="Document16" Margin="10,10,10,0" PlaceholderText="FILE PATH OF LOGIN DATA" IsEnabled="False" Text="{Binding currentPageExecute.FIlePath_1}"></ui:TextBox>
+            <ui:Button Content="SELECT EXCEL FILE FOR LOGIN DATA" Appearance="Primary" Command="{Binding cmdSelectLogin}" Icon="DataBarVertical32" HorizontalAlignment="Stretch" Margin="10,5,10,0"></ui:Button>
+            <ui:TextBox Icon="Document16" Margin="10,20,10,0" PlaceholderText="FILE PATH OF DATA LOOP" IsEnabled="False" Text="{Binding currentPageExecute.FIlePath_2}"></ui:TextBox>
+
+            <ui:Button Content="SELECT EXCEL FILE FOR DATA LOOP" Appearance="Secondary" Command="{Binding cmdSelectData}" Icon="DataBarVertical32" HorizontalAlignment="Stretch" Margin="10,5,10,0"></ui:Button>
+            <ProgressBar  Minimum="0" Maximum="{Binding MaxValue}" Value="{Binding CurrentValue}"  Margin="10,20,10,0"></ProgressBar>
+            <ui:Button Content="{Binding buttonText}" IsEnabled="{Binding isButtonEnabled}" Appearance="Success" Icon="Play32 " Command="{Binding cmdExecute}" HorizontalAlignment="Stretch" Margin="10,20,10,0"></ui:Button>
+
+
+        </StackPanel>
+        <ScrollViewer Grid.Row="0" Grid.Column="2">
+            <ListView ItemsSource="{Binding ListOfElementLogs}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ui:Card>
+                            <StackPanel>
+                                <TextBlock Text="{Binding elementName,StringFormat='ELEMENT NAME : {0}'}"></TextBlock>
+                                <TextBlock Text="{Binding errorMessage,StringFormat='ERROR MESSAGE : {0}'}"></TextBlock>
+
+                            </StackPanel>
+                        </ui:Card>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
+        
+    </Grid>
+</ui:UiPage>
